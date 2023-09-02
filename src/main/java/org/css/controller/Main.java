@@ -1,4 +1,6 @@
-package org.example;
+package org.css.controller;
+
+import org.css.controller.Controller;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -8,12 +10,9 @@ public class Main {
         // IntelliJ IDEA suggests fixing it.
         System.out.printf("the matrix has you\n");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        Controller controller = new Controller();
+        controller.Execute();
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
-        }
+
     }
 }
