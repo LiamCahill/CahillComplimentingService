@@ -1,0 +1,15 @@
+version: "3"
+services:
+  cahill-complimenting-service-db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=liamcahill
+      - MYSQL_DATABASE=databasepw
+
+  cahill-complimenting-service-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      cahill-complimenting-service-db:
+        condition: "service_started"
