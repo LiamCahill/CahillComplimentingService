@@ -4,7 +4,10 @@ services:
     image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=liamcahill
-      - MYSQL_DB=compliments
+      - MYSQL_DATABASE=myDB
+    ports:
+      - "3306:3306"
+    container_name: "cahill-complimenting-service-db"
 
   cahill-complimenting-service-app:
     build: .
