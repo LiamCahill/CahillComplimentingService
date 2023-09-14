@@ -9,15 +9,14 @@ public class MyConnection {
     //private static final Logger LOGGER = Logger.getLogger(Connection.class);
 
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:8080";
+        String url = "jdbc:mysql://localhost:3306/CSS_DEV";
 
-        Properties props = new Properties();
-        props.setProperty("user", "root");
-        props.setProperty("password", "password");
+        Properties connectionProps = new Properties();
+        connectionProps.put("root@localhost", "username");
+        connectionProps.put("liamcahill", "password");
 
-        Connection conn = DriverManager.getConnection(url, props);
         //Logger.trace("Testing connection...");
-        return conn;
+        return DriverManager.getConnection(url, connectionProps);
     }
 
 }

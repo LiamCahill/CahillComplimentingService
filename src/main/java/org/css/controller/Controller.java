@@ -12,6 +12,7 @@ public class Controller {
             //Logger.info("You are connected");
         } catch (SQLException e) {
             System.out.println("Connection refused.");
+            e.printStackTrace();
             //Logger.error("Issue connecting to CCS.", e);
             //System.exit(0);
         }
