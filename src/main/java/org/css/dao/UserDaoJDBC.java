@@ -13,8 +13,7 @@ public class UserDaoJDBC {
 
     private static Logger LOGGER = Logger.getLogger(String.valueOf(UserDaoJDBC.class));
 
-    @Override
-    public int createAccount(Account account){
+    public int createAccount(Account account) {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
 
@@ -30,10 +29,14 @@ public class UserDaoJDBC {
                 String sql = "INSERT INTO ACCOUNT()";
                 System.out.println("-----Creating your new account-----");
 
+                return 0;
 
-        }
-        } catch (SQLException e){
+
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        return -1;
+    }
 }
