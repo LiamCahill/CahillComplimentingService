@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Account implements Serializable {
     String username;
-    String status;
+    String email;
     private String password;
     private ArrayList<Compliment> compliments;
     @Serial
@@ -16,9 +16,9 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String username, String status, String password, ArrayList<Compliment> compliments) {
+    public Account(String username, String email, String password, ArrayList<Compliment> compliments) {
         this.username = username;
-        this.status = status;
+        this.email = email;
         this.password = password;
         this.compliments = compliments;
     }
@@ -31,12 +31,12 @@ public class Account implements Serializable {
         this.username = username;
     }
 
-    public String getStatus() {
-        return status;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -60,19 +60,19 @@ public class Account implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return Objects.equals(username, account.username) && Objects.equals(status, account.status) && Objects.equals(password, account.password) && Objects.equals(compliments, account.compliments);
+        return Objects.equals(username, account.username) && Objects.equals(email, account.email) && Objects.equals(password, account.password) && Objects.equals(compliments, account.compliments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, status, password, compliments);
+        return Objects.hash(username, email, password, compliments);
     }
 
     @Override
     public String toString() {
         return "Account{" +
                 "username='" + username + '\'' +
-                ", status='" + status + '\'' +
+                ", status='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", compliments=" + compliments +
                 '}';
