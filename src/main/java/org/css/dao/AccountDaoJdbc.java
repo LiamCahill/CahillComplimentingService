@@ -5,15 +5,17 @@ import org.css.controller.MyConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.css.model.Account;
 
-public class UserDaoJDBC implements UserDao {
+public class AccountDaoJdbc implements AccountDao {
 
-    private static Logger LOGGER = Logger.getLogger(String.valueOf(UserDaoJDBC.class));
+    private static Logger LOGGER = Logger.getLogger(String.valueOf(AccountDaoJdbc.class));
 
     public int createAccount(Account account) {
+        LOGGER.log(Level.INFO, "Creating account from AccountDaoJdbc createAccount method.");
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
 
@@ -27,18 +29,24 @@ public class UserDaoJDBC implements UserDao {
             } else {
                 //Add logic to initialize new account creation
                 System.out.println("-----Creating your new account-----");
-                String sql2 = "INSERT INTO ACCOUNT(U_USERNAME, U_EMAIL, U_PHONE_NUMBER, U_PASSWORD) VALUES (?,?,?,?)";
+                String sql2 = "INSERT INTO ACCOUNT(U_USERNAME, U_EMAIL, U_PASSWORD) VALUES (?,?,?)";
                 PreparedStatement statement = connection.prepareStatement(sql2);
 
                 statement.setString(++index, account.getUsername());
+                statement.setString(++index, account.getEmail());
                 statement.setString(++index, account.getPassword());
 
 
-                return 0;
+                if (statement.executeUpdate() > 0) {
+                    System.out.println("Success.");
+                    return 0;
+                }
+                System.out.println("failed");
 
 
             }
         } catch (SQLException e) {
+            System.out.println("failing at SQL exception");
             e.printStackTrace();
         }
 

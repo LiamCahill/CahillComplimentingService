@@ -2,9 +2,7 @@ package org.css.dao;
 
 import org.css.model.Account;
 
-import java.util.ArrayList;
-
-public interface UserDao {
+public interface AccountDao {
 
     int createAccount(Account account);
 
