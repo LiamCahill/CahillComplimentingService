@@ -4,9 +4,10 @@ package org.css.controller;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Starting application...");
         new Controller().console();
 
-//        Connection connection = null;
+//        Connection = null;
 //        try {
 //            // below two lines are used for connectivity.
 //            Class.forName("com.mysql.cj.jdbc.Driver");

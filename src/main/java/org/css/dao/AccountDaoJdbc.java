@@ -17,6 +17,7 @@ public class AccountDaoJdbc implements AccountDao {
     public int createAccount(Account account) {
         LOGGER.log(Level.INFO, "Creating account from AccountDaoJdbc createAccount method.");
         try (Connection connection = MyConnection.getConnection()) {
+            //todo Figure out why the connection is failing here.
             int index = 0;
 
             String sql1 = "SELECT * FROM USERS WHERE U_USERNAME = ?";
