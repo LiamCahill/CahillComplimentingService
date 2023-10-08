@@ -17,19 +17,22 @@ public class AccountDaoJdbc implements AccountDao {
     public int createAccount(Account account) {
         LOGGER.log(Level.INFO, "Creating account from AccountDaoJdbc createAccount method.");
         try (Connection connection = MyConnection.getConnection()) {
-            //todo Figure out why the connection is failing here.
-            int index = 0;
+            LOGGER.log(Level.INFO, "Inside AccountDaoJdbc createAccount connection try block");
 
+            int index = 0;
             String sql1 = "SELECT * FROM USERS WHERE U_USERNAME = ?";
+            LOGGER.log(Level.INFO, "sql SELECT statement initialized.");
+
             PreparedStatement statement1 = connection.prepareStatement(sql1);
             statement1.setString(1, account.getUsername());
-            if (statement1.executeUpdate() > 0) {
-                System.out.println("Account already exists.");
 
+            // TODO:  executeUpdate() or executeLargeUpdate() with statements that produce result sets
+            if (statement1.executeUpdate()> 0) {
+                LOGGER.log(Level.INFO, "Account was found in database already. Will not be creating new one.");
+                System.out.println("Account already exists.");
                 return 0;
             } else {
-                //Add logic to initialize new account creation
-                System.out.println("-----Creating your new account-----");
+                LOGGER.log(Level.INFO, "Account was not found in database. Creating new one.");
                 String sql2 = "INSERT INTO ACCOUNT(U_USERNAME, U_EMAIL, U_PASSWORD) VALUES (?,?,?)";
                 PreparedStatement statement = connection.prepareStatement(sql2);
 
@@ -39,18 +42,15 @@ public class AccountDaoJdbc implements AccountDao {
 
 
                 if (statement.executeUpdate() > 0) {
+                    LOGGER.log(Level.INFO, "New account successfully created.");
                     System.out.println("Success.");
                     return 0;
                 }
-                System.out.println("failed");
-
-
+                LOGGER.log(Level.INFO, "New account creation failed..");
             }
         } catch (SQLException e) {
-            System.out.println("failing at SQL exception");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.toString());
         }
-
         return -1;
     }
 }

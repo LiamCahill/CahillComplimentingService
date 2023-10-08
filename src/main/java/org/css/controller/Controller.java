@@ -14,12 +14,12 @@ import java.util.logging.Logger;
 
 public class Controller {
     private static Logger LOGGER = Logger.getLogger(String.valueOf(Controller.class));
-
     private static Account userAccount = null;
     private static AccountService accountService = new AccountServiceImpl();
 
     public void console(){
         //private static final Logger LOGGER = Logger.getLogger(Controller.class);
+        LOGGER.log(Level.INFO, "Creating console 'driver' users.");
         userAccount = new Account();
         userAccount.setUsername("lim");
         userAccount.setPassword("cah");
@@ -31,10 +31,7 @@ public class Controller {
             System.out.println("Connection: Successful");
             //Logger.info("You are connected");
         } catch (SQLException e) {
-            System.out.println("Connection refused.");
-            e.printStackTrace();
-            //Logger.error("Issue connecting to CCS.", e);
-            //System.exit(0);
+            LOGGER.log(Level.SEVERE, e.toString());
         }
 
 
