@@ -18,11 +18,11 @@ public class AccountDaoJdbc implements AccountDao {
         LOGGER.log(Level.INFO, "Creating account from AccountDaoJdbc createAccount method.");
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
-            String usersQueryForUser = "SELECT * FROM USERS WHERE U_USERNAME = ?";
+            String usersQueryForUser = "SELECT * FROM USERS WHERE U_USERNAME = 'DCAHILL'";
             LOGGER.log(Level.INFO, "sql SELECT statement initialized.");
 
             PreparedStatement stmt = connection.prepareStatement(usersQueryForUser);
-            stmt.setString(1, account.getUsername());
+            //stmt.setString(1, account.getUsername());
             ResultSet rs = stmt.executeQuery(usersQueryForUser);
 
             if (rs.next()){

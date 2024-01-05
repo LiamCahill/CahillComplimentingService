@@ -11,7 +11,7 @@ Project Requirements:
          7. one chosen by the program, at random
    5. Logout
 6. Database: The database needs to be hosted in a docker container, and the data must (obviously) be saved.
-   7. In a further interation, it is expected that a Raspberry Pi will host/run the docker container, and this program will connnect
+   7. In a further iteration, it is expected that a Raspberry Pi will host/run the docker container, and this program will connnect
 8. Developer Behaviour: The program must be structured intuitively, and as close to a profession program as possible.
    9. Best practices for naming, file structure, and all Git behavior must be implemented.
 
@@ -19,10 +19,14 @@ Project Requirements:
 ___
 *Recreation of project:*
 1. From docker-compose.yml, confirm the parameters you require are present. 
-2. Execute the compose file, and not the creation of the container in the pane below (for IntelliJ development.)
+2. Execute the compose file, and note the creation of the container in the pane below (for IntelliJ development.)
 3. Confirm the container started successfully.
 4. Navigate to the Database tab on the right and connect to the mySQL database with the same parameters.
 5. Run any necessary DDL to build the DB schema, as needed. 
+
+Alternatively,
+1. Start the mySQLCCSdev container manually.
+2. Run the main method.
 
 
 
