@@ -31,32 +31,6 @@ public class AccountDaoJdbc implements AccountDao {
                 System.exit(1);
             }
 
-//            PreparedStatement statement1 = connection.prepareStatement(sql1);
-//            LOGGER.log(Level.INFO, "Checking for user " + account.getUsername() + " in database.");
-//            statement1.setString(1, account.getUsername());
-
-            // TODO:  executeUpdate() or executeLargeUpdate() with statements that produce result sets
-//            if (usersQueryForUser.executeQuery() != null) {
-//                LOGGER.log(Level.INFO, "Account was found in database already. Will not be creating new one.");
-//                System.out.println("Account already exists.");
-//                return 0;
-//            } else {
-//                LOGGER.log(Level.INFO, "Account was not found in database. Creating new one.");
-//                String sql2 = "INSERT INTO ACCOUNT(U_USERNAME, U_EMAIL, U_PASSWORD) VALUES (?,?,?)";
-//                PreparedStatement statement = connection.prepareStatement(sql2);
-//
-//                statement.setString(++index, account.getUsername());
-//                statement.setString(++index, account.getEmail());
-//                statement.setString(++index, account.getPassword());
-//
-//
-//                if (statement.executeUpdate() > 0) {
-//                    LOGGER.log(Level.INFO, "New account successfully created.");
-//                    System.out.println("Success.");
-//                    return 0;
-//                }
-//                LOGGER.log(Level.INFO, "New account creation failed..");
-//            }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString());
         }
