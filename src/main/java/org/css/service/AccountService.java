@@ -4,5 +4,6 @@ import org.css.model.Account;
 
 public interface AccountService {
     public int createAccount(Account account);
+    public int checkForAccount(Account account);
 
 }

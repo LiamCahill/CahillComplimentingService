@@ -8,12 +8,9 @@ import java.util.logging.Logger;
 
 import org.css.model.Account;
 
-import javax.xml.transform.Result;
-
 public class AccountDaoJdbc implements AccountDao {
 
     private static Logger LOGGER = Logger.getLogger(String.valueOf(AccountDaoJdbc.class));
-
     public int createAccount(Account account) {
         LOGGER.log(Level.INFO, "Creating account from AccountDaoJdbc createAccount method.");
         try (Connection connection = MyConnection.getConnection()) {
@@ -60,6 +57,40 @@ public class AccountDaoJdbc implements AccountDao {
 //                }
 //                LOGGER.log(Level.INFO, "New account creation failed..");
 //            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, e.toString());
+        }
+        return -1;
+    }
+    public int checkForAccount(Account account){
+        LOGGER.log(Level.INFO, "Checking for existing account...");
+
+        // Query which needs parameters
+        final String usersQueryForUser = "SELECT * FROM USERS WHERE U_USERNAME =?";
+
+        // Connection to your database
+        // Prepare Statement
+        try (Connection connection = MyConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(usersQueryForUser); ) {
+            LOGGER.log(Level.INFO, "Initializing account search.");
+            int index = 0;
+
+            // Set Parameters
+            stmt.setString(++index, account.getUsername());
+
+            // Execute SQL query
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()){
+                LOGGER.log(Level.INFO, "Account found in database.");
+                System.out.println("Account already exists.");
+                return 0;
+            } else {
+                LOGGER.log(Level.INFO, "Account was not found in database.");
+                System.exit(1);
+            }
+
+
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString());
         }

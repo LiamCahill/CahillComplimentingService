@@ -5,16 +5,3 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=myDB
-
-
-
-#  Note that docker-compose is capable of building an image
-#  specified in the Dockerfile
-
-#  cahill-complimenting-service-app:
-#    build: .
-#    ports:
-#      - "8080:8080" #host:container
-#    depends_on:
-#      cahill-complimenting-service-db:
-#        condition: "service_started"

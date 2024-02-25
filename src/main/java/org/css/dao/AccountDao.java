@@ -6,6 +6,8 @@ public interface AccountDao {
 
     int createAccount(Account account);
 
+    int checkForAccount(Account account);
+
     //Compliment receiveCompliment(Account account)
     //Compliment giveCompliment(Account account)
 

@@ -22,4 +22,9 @@ public class AccountServiceImpl implements AccountService {
         LOGGER.log(Level.INFO, "Checking status of statement1 execution");
         return dao.createAccount(account);
     }
+
+    public int checkForAccount(Account account){
+        LOGGER.log(Level.INFO, "Checking for existing account.");
+        return dao.checkForAccount(account);
+    }
 }
