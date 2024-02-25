@@ -3,7 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/org/css/dao/AccountDaoJdbc.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/add_mock_data.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/project_ddl.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/database_ddl.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>

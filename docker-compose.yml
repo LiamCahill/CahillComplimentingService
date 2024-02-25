@@ -9,7 +9,7 @@ services:
 
 
 #  Note that docker-compose is capable of building an image
-# specified in the Dockerfile
+#  specified in the Dockerfile
 
 #  cahill-complimenting-service-app:
 #    build: .
