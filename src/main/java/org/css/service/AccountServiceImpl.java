@@ -19,12 +19,12 @@ public class AccountServiceImpl implements AccountService {
     public AccountDao dao = new AccountDaoJdbc();
 
     public int createAccount(Account account){
-        LOGGER.log(Level.INFO, "Checking status of statement1 execution");
+        LOGGER.log(Level.INFO, "Calling createAccount");
         return dao.createAccount(account);
     }
 
     public int checkForAccount(Account account){
-        LOGGER.log(Level.INFO, "Checking for existing account.");
+        LOGGER.log(Level.INFO, "Checking for existing account");
         return dao.checkForAccount(account);
     }
 }

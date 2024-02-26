@@ -21,9 +21,9 @@ public class Controller {
         //private static final Logger LOGGER = Logger.getLogger(Controller.class);
         LOGGER.log(Level.INFO, "Creating console 'driver' users.");
         userAccount = new Account();
-        userAccount.setUsername("lim");
-        userAccount.setPassword("cah");
-        userAccount.setEmail("cah@gmail.com");
+        userAccount.setUsername("testLIAM1");
+        userAccount.setPassword("mytestpassword");
+        userAccount.setEmail("fake@gmail.com");
 
 
         System.out.println("Creating a connection...");
@@ -34,7 +34,8 @@ public class Controller {
             LOGGER.log(Level.SEVERE, e.toString());
         }
 
-        accountService.checkForAccount(userAccount);
+//        accountService.checkForAccount(userAccount);
+        accountService.createAccount(userAccount);
 
 
 //        LOGGER.log(Level.INFO, "Creating test account in Controller.java");
