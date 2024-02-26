@@ -38,13 +38,17 @@ public class Controller {
         accountService.createAccount(userAccount);
 
 
-//        LOGGER.log(Level.INFO, "Creating test account in Controller.java");
-//        String testUsername = "username";
-//        String testPassword = "password";
-//        String testEmail = "username@gmail.com";
-//        ArrayList<Compliment> testCompliments = new ArrayList<>();
-//        userAccount = new Account(testUsername,testEmail,testPassword, testCompliments);
-//        accountService.createAccount(userAccount);
+        /*
+        LOGGER.log(Level.INFO, "Creating test account in Controller.java");
+        String testUsername = "username";
+        String testPassword = "password";
+        String testEmail = "username@gmail.com";
+        ArrayList<Compliment> testCompliments = new ArrayList<>();
+        userAccount = new Account(testUsername,testEmail,testPassword, testCompliments);
+        accountService.createAccount(userAccount);
+         */
+
+
 
 
     }

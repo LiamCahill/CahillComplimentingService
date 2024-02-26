@@ -10,7 +10,7 @@ import org.css.model.Account;
 
 public class AccountDaoJdbc implements AccountDao {
 
-    private static Logger LOGGER = Logger.getLogger(String.valueOf(AccountDaoJdbc.class));
+    private static final Logger LOGGER = Logger.getLogger(String.valueOf(AccountDaoJdbc.class));
     public int createAccount(Account account) {
         LOGGER.log(Level.INFO, "Creating account from AccountDaoJdbc createAccount method.");
 
@@ -20,7 +20,7 @@ public class AccountDaoJdbc implements AccountDao {
             final String usersQueryForUser = "INSERT INTO USERS(U_USERNAME, U_EMAIL, U_PASSWORD) VALUES(?,?,?)";
 
             try (Connection connection = MyConnection.getConnection();
-                 PreparedStatement stmt = connection.prepareStatement(usersQueryForUser);) {
+                 PreparedStatement stmt = connection.prepareStatement(usersQueryForUser)) {
                 int index = 0;
                 LOGGER.log(Level.INFO, "sql INSERT statement initialized.");
 
@@ -46,7 +46,7 @@ public class AccountDaoJdbc implements AccountDao {
         // Connection to your database
         // Prepare Statement
         try (Connection connection = MyConnection.getConnection();
-             PreparedStatement stmt = connection.prepareStatement(usersQueryForUser); ) {
+             PreparedStatement stmt = connection.prepareStatement(usersQueryForUser)) {
             LOGGER.log(Level.INFO, "Initializing account search.");
             int index = 0;
 
