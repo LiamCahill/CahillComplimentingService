@@ -36,5 +36,5 @@ Alternatively,
    a. user: root
    b. MYSQL_ROOT_PASSWORD=liamcahill
    c. MYSQL_DATABASE=databasepw
-5. Ensure the connect is successful. Ex. execute on of the 
+5. Ensure the connect is successful. Ex. execute one of the SELECT statements found in the add_mock_data.sql file.
 
