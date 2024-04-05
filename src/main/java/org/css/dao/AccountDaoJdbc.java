@@ -57,15 +57,13 @@ public class AccountDaoJdbc implements AccountDao {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()){
-                LOGGER.log(Level.INFO, "Account found in database.");
-                System.out.println("You already have an account. Please login instead.");
+                LOGGER.log(Level.INFO, "The following Account was found in the database: " + account.getUsername());
                 return 0;
             } else {
                 LOGGER.log(Level.INFO, "Account was not found in database.");
                 return 1;
 //                System.exit(1);
             }
-
 
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.toString());
