@@ -28,5 +28,13 @@ Alternatively,
 1. Start the mySQLCCSdev container manually.
 2. Run the main method.
 
-
+### Development Startup Steps
+1. Confirm Docker Desktop is running.
+2. Navigate to the IJ Services pan below, expand the docker tab if necessary, and locate the **mySQLCCSdev** container.
+3. Start the container.
+4. If prompted for credentials, notes the following:
+   a. user: root
+   b. MYSQL_ROOT_PASSWORD=liamcahill
+   c. MYSQL_DATABASE=databasepw
+5. Ensure the connect is successful. Ex. execute on of the 
 
