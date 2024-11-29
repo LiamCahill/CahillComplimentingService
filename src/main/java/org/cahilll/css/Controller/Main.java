@@ -1,22 +1,15 @@
-package org.css.controller;
+package org.cahilll.css.Controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
 
-        System.out.print("the matrix has you\n");
-
-        Controller controller = new Controller();
-        controller.execute();
-
-
-
-
-
+        System.out.print("\n------------------\nthe matrix has you\n------------------\n");
+        new Controller().console();
 
     }
 }

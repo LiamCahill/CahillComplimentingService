@@ -1,33 +1,34 @@
-package org.css.controller;
+package org.cahilll.css.Controller;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.util.Scanner;
+import java.util.logging.Logger;
+
+import static org.cahilll.css.Common.Constants.connectionURL;
+import static org.cahilll.css.Common.Constants.userName;
 
 public class MyConnection {
-    //private static final Logger LOGGER = Logger.getLogger(Connection.class);
+    private static final Logger LOGGER = Logger.getLogger("MyConnection.class");
 
     public static Connection getConnection() throws SQLException {
-        //source for troubleshooting: https://www.geeksforgeeks.org/java-database-connectivity-with-mysql/#
+        /**
+         * For troubleshooting: https://www.geeksforgeeks.org/java-database-connectivity-with-mysql/#
+         */
+
         Connection connection = null;
         try {
-            // below two lines are used for connectivity.
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/CSS_DEV",
-                    "root", "liamcahill");
-
-            // mydb is database
-            // mydbuser is name of database
-            // mydbuser is password of database
+                    "myuser", "mypassword");
         }
         catch (Exception exception) {
             System.out.println(exception);
         }
-
-        //Logger.trace("Testing connection...");
         return connection;
-    }
 
+    }
 }
