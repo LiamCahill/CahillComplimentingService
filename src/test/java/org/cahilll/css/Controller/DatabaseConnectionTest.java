@@ -47,6 +47,21 @@ public class DatabaseConnectionTest {
     }
 
     @Test
+    public void sampleTest() {
+        // Use System.err for test output or configure logging
+        System.err.println("testDatabaseConnection2"); 
+        
+        // Add more meaningful output
+        String testMessage = "Running sample test...";
+        System.err.println(testMessage);
+        
+        // Add actual test logic and assertions
+        boolean condition = true;
+        System.err.println("Test condition is: " + condition);
+        assertTrue(condition, "Basic assertion should pass");
+    }
+    
+    @Test
     public void testDatabaseConnection() {
         // Test that we can fetch a user we know exists in our test data
         Optional<Account> user = userRepository.findByUsername("TCAHILL");

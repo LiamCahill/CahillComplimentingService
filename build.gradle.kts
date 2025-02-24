@@ -1,16 +1,16 @@
 plugins {
     id("java")
     id("checkstyle")
+    id("application")
     id("io.freefair.lombok") version "8.4"
-    id("org.springframework.boot") version "3.2.2"
+    id("org.springframework.boot") version "2.7.18"
     id("io.spring.dependency-management") version "1.1.4"
-    id("org.springframework.boot" version "3.2.0"
-
+    //id("org.springframework.boot") version "3.4.3"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 group = "org.cahilll.css"
@@ -32,18 +32,18 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     testImplementation("org.jeasy:easy-random-core:5.0.0")
-    testImplementation ("org.springframework:spring-test:7.0.0-M2")
+    testImplementation("org.springframework:spring-test:5.3.29")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.testcontainers:testcontainers:1.20.5")
     testImplementation("org.testcontainers:junit-jupiter:1.20.5")
     testImplementation("org.testcontainers:postgresql:1.20.5")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.3")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.18")
 
 
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
-    runtimeOnly("org.springframework.boot:spring-boot-docker-compose")
+    //runtimeOnly("org.springframework.boot:spring-boot-docker-compose")
 }
 
 tasks.test {
@@ -51,6 +51,14 @@ tasks.test {
 }
 
 checkstyle {
-    toolVersion = "10.16.0"
-    config = resources.text.fromFile("$rootDir/config/checkstyle/checkstyle.xml")
+    toolVersion = "8.45"    
+    //configFile = file("checkstyle.xml")
+}
+
+springBoot {
+    mainClass.set("org.cahilll.css.Controller.Main")
+}
+
+application {
+    mainClass.set("org.cahilll.css.Controller.Main")
 }
