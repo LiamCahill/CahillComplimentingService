@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.cahilll.css.Model.Account;
 import org.cahilll.css.Repository.UserRepository;
 
 @SpringBootTest
@@ -48,7 +49,7 @@ public class DatabaseConnectionTest {
     @Test
     public void testDatabaseConnection() {
         // Test that we can fetch a user we know exists in our test data
-        Optional<User> user = userRepository.findByUsername("TCAHILL");
+        Optional<Account> user = userRepository.findByUsername("TCAHILL");
         assertTrue(user.isPresent());
         assertEquals("7CAHILLS@ATT.NET", user.get().getEmail());
     }
