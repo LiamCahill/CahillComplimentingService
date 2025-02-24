@@ -6,6 +6,6 @@ public interface AccountDao {
 
     public boolean validateAccount(Account account);
 
-    public
+    //public
 
 }
