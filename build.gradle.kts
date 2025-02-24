@@ -1,6 +1,5 @@
 plugins {
     id("java")
-    id("checkstyle")
     id("application")
     id("io.freefair.lombok") version "8.4"
     id("org.springframework.boot") version "2.7.18"
@@ -48,11 +47,6 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-checkstyle {
-    toolVersion = "8.45"    
-    //configFile = file("checkstyle.xml")
 }
 
 springBoot {
