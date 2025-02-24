@@ -24,12 +24,24 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("mysql:mysql-connector-java:8.0.28")
     implementation("org.projectlombok:lombok:1.18.32")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
+
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     testImplementation("org.jeasy:easy-random-core:5.0.0")
+    testImplementation ("org.springframework:spring-test:7.0.0-M2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.testcontainers:testcontainers:1.20.5")
+    testImplementation("org.testcontainers:junit-jupiter:1.20.5")
+    testImplementation("org.testcontainers:postgresql:1.20.5")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.4.3")
+
+
+    "developmentOnly"("org.springframework.boot:spring-boot-devtools")
+    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.springframework.boot:spring-boot-docker-compose")
 }
 
 tasks.test {
