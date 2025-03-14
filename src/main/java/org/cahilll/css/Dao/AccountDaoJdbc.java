@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 
@@ -34,5 +35,53 @@ public class AccountDaoJdbc implements AccountDao {
             e.printStackTrace();
         }
         return false;
+    }
+
+
+    @Override
+    public ArrayList<String> retrieveCompliment(Account userAccount) {
+        //TODO: Figure out why the compliment count doesn't match the number of compliments retrieved
+        ArrayList<String> compliments = new ArrayList<>();
+        
+        try (Connection connection = MyConnection.getConnection()) {
+            int index = 0;
+            String compliment_query = "SELECT * FROM COMPLIMENTS WHERE C_RECEIVER = ? ";
+            int compliment_count = getComplimentCount(userAccount);
+
+            PreparedStatement statement_compliment = connection.prepareStatement(compliment_query);
+            statement_compliment.setString(++index, userAccount.getUsername());
+
+            ResultSet result_compliment = statement_compliment.executeQuery();
+            if (result_compliment.next()) {
+                System.out.println(compliment_count + " compliment(s) found!");
+                while(result_compliment.next()) {
+                    compliments.add(result_compliment.getString("C_MESSAGE"));
+                }
+
+                return compliments;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>();
+    }
+
+    private int getComplimentCount(Account userAccount) {
+        try (Connection connection = MyConnection.getConnection()) {
+            int index = 0;
+            String sql = "SELECT COUNT(*) FROM COMPLIMENTS WHERE C_RECEIVER = ?";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(++index, userAccount.getUsername());
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

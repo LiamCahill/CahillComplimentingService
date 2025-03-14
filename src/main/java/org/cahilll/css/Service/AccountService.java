@@ -6,5 +6,7 @@ public interface AccountService {
 
     public boolean loggedIn(Account account);
 
+    public void retrieveCompliment(Account userAccount);
+
 
 }

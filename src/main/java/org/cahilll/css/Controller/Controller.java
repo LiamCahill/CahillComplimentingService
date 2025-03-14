@@ -51,11 +51,14 @@ public class Controller {
 
                 Account unconfirmedAccount = new Account(username, password);
                 System.out.println("Logged in status = " + accountService.loggedIn(unconfirmedAccount));
+
                 if (!accountService.loggedIn(unconfirmedAccount)) {
                     System.out.println("Login failed. Please exit the application and retry.");
                     System.exit(0);
                 }
 
+                userAccount = unconfirmedAccount;
+                System.out.println("Welcome " + userAccount.getUsername() + "!");
                 System.out.println("Please select from the following list:");
                 System.out.println("[1] Retrieve a compliment");
                 System.out.println("[2] Send a compliment");
@@ -69,9 +72,9 @@ public class Controller {
                     System.out.println("Please enter a valid option.");
                 }
 
-                // if (accountOptions.equals("1")){
-                //     accountService
-                // }
+                if (accountOptions.equals("1")){
+                    accountService.retrieveCompliment(userAccount);
+                }
             }
         }
     }
