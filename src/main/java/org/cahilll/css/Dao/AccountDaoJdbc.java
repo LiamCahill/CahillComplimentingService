@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 public class AccountDaoJdbc implements AccountDao {
     private static Logger LOGGER = Logger.getLogger("AccountDaoJdbc");
 
-
     @Override
     public boolean validateAccount(Account account) {
         try (Connection connection = MyConnection.getConnection()) {
@@ -40,7 +39,6 @@ public class AccountDaoJdbc implements AccountDao {
 
     @Override
     public ArrayList<String> retrieveCompliment(Account userAccount) {
-        //TODO: Figure out why the compliment count doesn't match the number of compliments retrieved
         ArrayList<String> compliments = new ArrayList<>();
         
         try (Connection connection = MyConnection.getConnection()) {
@@ -52,19 +50,16 @@ public class AccountDaoJdbc implements AccountDao {
             statement_compliment.setString(++index, userAccount.getUsername());
 
             ResultSet result_compliment = statement_compliment.executeQuery();
-            if (result_compliment.next()) {
+            if(result_compliment != null) {
                 System.out.println(compliment_count + " compliment(s) found!");
                 while(result_compliment.next()) {
                     compliments.add(result_compliment.getString("C_MESSAGE"));
                 }
-
-                return compliments;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return new ArrayList<>();
+        return compliments;
     }
 
     private int getComplimentCount(Account userAccount) {
