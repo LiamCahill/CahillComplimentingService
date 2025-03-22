@@ -22,6 +22,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("mysql:mysql-connector-java:8.0.28")
 
+    implementation ("com.googlecode.lanterna:lanterna:3.1.1")
+
     // implementation("org.springframework:spring-jdbc:6.1.8")
     // implementation("org.springframework.boot:spring-boot-starter-validation:3.3.4")
     // implementation("org.springframework.boot:spring-boot-starter-jdbc:3.3.4")

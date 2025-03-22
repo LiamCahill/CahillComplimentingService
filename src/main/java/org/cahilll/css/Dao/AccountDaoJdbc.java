@@ -8,17 +8,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class AccountDaoJdbc implements AccountDao {
-    private static Logger LOGGER = Logger.getLogger("AccountDaoJdbc");
 
     @Override
     public boolean validateAccount(Account account) {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
             String sql = "SELECT * FROM USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?";
+            log.info("Validating account: {}", account);
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(++index, account.getUsername());
