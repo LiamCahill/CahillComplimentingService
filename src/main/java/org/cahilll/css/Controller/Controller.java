@@ -113,35 +113,16 @@ public class Controller {
                     gui.addWindowAndWait(loginWindow);
 
                 });
-
-                // Add buttons
-                Button viewButton = new Button("View Compliments", () -> {
-                    // Handle view compliments
-                    System.out.println("Viewing compliments...");
-                });
-                
-                Button sendButton = new Button("Send Compliment", () -> {
-                    // Handle send compliment
-                    System.out.println("Sending compliment...");
-                });
-                
-                Button settingsButton = new Button("Account Settings", () -> {
-                    // Handle account settings
-                    System.out.println("Opening settings...");
-                });
                 
                 Button exitButton = new Button("Exit", window::close);
                 
                 panel.addComponent(loginButton);
-                panel.addComponent(viewButton);
-                panel.addComponent(sendButton);
-                panel.addComponent(settingsButton);
                 panel.addComponent(exitButton);
                 
                 // Set window component
                 window.setComponent(panel);
                 
-                // Use the existing gui instance - DELETE THE DUPLICATE DEFINITION HERE
+                // Use the existing gui instance
                 gui.addWindowAndWait(window);
 
                 screen.stopScreen();
