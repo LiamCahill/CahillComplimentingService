@@ -8,11 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class AccountDaoJdbc implements AccountDao {
-    private static Logger LOGGER = Logger.getLogger("AccountDaoJdbc");
 
     @Override
     public boolean validateAccount(Account account) {
@@ -44,6 +43,8 @@ public class AccountDaoJdbc implements AccountDao {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
             String compliment_query = "SELECT * FROM COMPLIMENTS WHERE C_RECEIVER = ? ";
+            log.info("Retrieving compliments for user: {}", userAccount.getUsername());
+
             int compliment_count = getComplimentCount(userAccount);
 
             PreparedStatement statement_compliment = connection.prepareStatement(compliment_query);
