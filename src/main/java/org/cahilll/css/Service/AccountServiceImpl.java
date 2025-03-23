@@ -22,9 +22,11 @@ public class AccountServiceImpl implements AccountService {
         return isLoggedIn;
     }
 
-    public void retrieveCompliment(Account userAccount) {
+    public ArrayList<String> retrieveCompliment(Account userAccount) {
         ArrayList<String> compliments = dao.retrieveCompliment(userAccount);
-        System.out.println(compliments);
+        return compliments;
     }
+
+    // TODO: add a method to retrieve a compliment that has not been used yet
 
 }

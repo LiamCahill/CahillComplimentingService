@@ -18,7 +18,6 @@ public class AccountDaoJdbc implements AccountDao {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
             String sql = "SELECT * FROM USERS WHERE U_USERNAME = ? AND U_PASSWORD = ?";
-            log.info("Validating account: {}", account);
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(++index, account.getUsername());
@@ -44,6 +43,8 @@ public class AccountDaoJdbc implements AccountDao {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
             String compliment_query = "SELECT * FROM COMPLIMENTS WHERE C_RECEIVER = ? ";
+            log.info("Retrieving compliments for user: {}", userAccount.getUsername());
+
             int compliment_count = getComplimentCount(userAccount);
 
             PreparedStatement statement_compliment = connection.prepareStatement(compliment_query);

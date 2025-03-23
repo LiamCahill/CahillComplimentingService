@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 import java.util.logging.Logger;
-
+import java.util.ArrayList;
 @Component
 @AllArgsConstructor
 @Slf4j
@@ -44,105 +44,114 @@ public class Controller {
                 e.printStackTrace();
                 System.exit(0);
             }
-
-            try {
-                Terminal terminal = new DefaultTerminalFactory().createTerminal();
-                Screen screen = new TerminalScreen(terminal);
-                screen.startScreen();
-                System.out.println("the matrix has you");
-                
-                // Create window
-                BasicWindow window = new BasicWindow("The Cahill Compliment Service");
-                
-                // Create panel
-                Panel panel = new Panel(new LinearLayout(Direction.VERTICAL));
-                panel.addComponent(new Label("Please select the the following options:"));
-                panel.addComponent(new EmptySpace());
-
-                // Create GUI once - keep this instance
-                MultiWindowTextGUI gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), 
-                    new EmptySpace(TextColor.ANSI.BLUE));
-
-                // Add buttons
-                Button loginButton = new Button("Login", () -> {
-                    BasicWindow loginWindow = new BasicWindow("Login");
-                    Panel loginPanel = new Panel(new LinearLayout(Direction.VERTICAL));
-                    
-                    // Add username field
-                    loginPanel.addComponent(new Label("Username:"));
-                    TextBox usernameField = new TextBox();
-                    loginPanel.addComponent(usernameField);
-                    
-                    // Add password field (using password input)
-                    loginPanel.addComponent(new Label("Password:"));
-                    TextBox passwordField = new TextBox().setMask('*');
-                    loginPanel.addComponent(passwordField);
-
-                    // Add login and cancel buttons
-                    Panel buttonPanel = new Panel(new LinearLayout(Direction.HORIZONTAL));
-
-                    Button submitButton = new Button("Login", () -> {
-                        String username = usernameField.getText();
-                        String password = passwordField.getText();
-                        
-                        Account unconfirmedAccount = new Account(username, password);
-                        
-                        if (!accountService.loggedIn(unconfirmedAccount)) {
-                            MessageDialogButton msgButton = MessageDialog.showMessageDialog(
-                                gui, "Login Failed", "Invalid username or password. Please try again.",
-                                MessageDialogButton.OK);
-                            return;
-                        }
-                        
-                        userAccount = unconfirmedAccount;
-                        loginWindow.close();
-                        
-                        // Show options in a new dialog
-                        showUserOptions(gui);
-                    });
-                    
-                    Button cancelButton = new Button("Cancel", loginWindow::close);
-                    
-                    buttonPanel.addComponent(submitButton);
-                    buttonPanel.addComponent(cancelButton);
-                    loginPanel.addComponent(buttonPanel);
-                    
-                    loginWindow.setComponent(loginPanel);
-                    
-                    // Show the login window
-                    gui.addWindowAndWait(loginWindow);
-
-                });
-                
-                Button exitButton = new Button("Exit", window::close);
-                
-                panel.addComponent(loginButton);
-                panel.addComponent(exitButton);
-                
-                // Set window component
-                window.setComponent(panel);
-                
-                // Use the existing gui instance
-                gui.addWindowAndWait(window);
-
-                screen.stopScreen();
-            } catch (IOException e) {
-                log.error("Error initializing terminal: " + e.getMessage());
-                e.printStackTrace();
-            }
+            createMainWindow();
         }
     }
 
-    private void showUserOptions(WindowBasedTextGUI gui) {
-        BasicWindow optionsWindow = new BasicWindow("Welcome " + userAccount.getUsername());
+    private void createMainWindow(){
+        try {
+            Terminal terminal = new DefaultTerminalFactory().createTerminal();
+            Screen screen = new TerminalScreen(terminal);
+            screen.startScreen();
+            
+            // Create window
+            BasicWindow mainWindow = new BasicWindow("The Cahill Compliment Service");
+            
+            // Create and start GUI
+            MultiWindowTextGUI gui = new MultiWindowTextGUI(screen, new DefaultWindowManager(), 
+                    new EmptySpace(TextColor.ANSI.BLUE));
+            
+            // Show the main menu
+            showMainMenu(gui, mainWindow);
+            
+            // Start the GUI with the main window
+            gui.addWindowAndWait(mainWindow);
+            
+            screen.stopScreen();
+        } catch (IOException e) {
+            log.error("Error initializing terminal: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void showMainMenu(WindowBasedTextGUI gui, BasicWindow mainWindow) {
+            Panel panel = new Panel(new LinearLayout(Direction.VERTICAL));
+            panel.addComponent(new Label("Please select the following options:"));
+            panel.addComponent(new EmptySpace());
+    
+            Button loginButton = new Button("Login", () -> {
+                BasicWindow loginWindow = new BasicWindow("Login");
+                Panel loginPanel = new Panel(new LinearLayout(Direction.VERTICAL));
+                
+                // Add username field
+                loginPanel.addComponent(new Label("Username:"));
+                TextBox usernameField = new TextBox();
+                loginPanel.addComponent(usernameField);
+                
+                // Add password field (using password input)
+                loginPanel.addComponent(new Label("Password:"));
+                TextBox passwordField = new TextBox().setMask('*');
+                loginPanel.addComponent(passwordField);
+
+                // Add login and cancel buttons
+                Panel buttonPanel = new Panel(new LinearLayout(Direction.HORIZONTAL));
+
+                Button submitButton = new Button("Login", () -> {
+                    String username = usernameField.getText();
+                    String password = passwordField.getText();
+                    
+                    Account unconfirmedAccount = new Account(username, password);
+                    
+                    if (!accountService.loggedIn(unconfirmedAccount)) {
+                        MessageDialogButton msgButton = MessageDialog.showMessageDialog(
+                            gui, "Login Failed", "Invalid username or password. Please try again.",
+                            MessageDialogButton.OK);
+                        return;
+                    }
+                    
+                    userAccount = unconfirmedAccount;
+                    loginWindow.close();
+                    
+                    // Pass the main window to showUserOptions
+                    showUserOptions(gui, mainWindow);
+                });
+                
+                Button cancelButton = new Button("Cancel", loginWindow::close);
+                
+                buttonPanel.addComponent(submitButton);
+                buttonPanel.addComponent(cancelButton);
+                loginPanel.addComponent(buttonPanel);
+                
+                loginWindow.setComponent(loginPanel);
+                
+                // Show the login window
+                gui.addWindowAndWait(loginWindow);
+
+            });
+            
+            Button exitButton = new Button("Exit", mainWindow::close);
+            
+            panel.addComponent(loginButton);
+            panel.addComponent(exitButton);
+            
+            // Set window component
+            mainWindow.setComponent(panel);
+        }
+
+    private void showUserOptions(WindowBasedTextGUI gui, BasicWindow mainWindow) {
+        // Create a new panel that will replace the current content
         Panel optionsPanel = new Panel(new LinearLayout(Direction.VERTICAL));
         
+        // Add a title
+        optionsPanel.addComponent(new Label("Welcome " + userAccount.getUsername() + "!"));
+        optionsPanel.addComponent(new EmptySpace());
         optionsPanel.addComponent(new Label("Please select an option:"));
         optionsPanel.addComponent(new EmptySpace());
         
         Button retrieveButton = new Button("Retrieve a compliment", () -> {
             // Handle retrieving compliment
             System.out.println("Retrieving compliment...");
+            showRetrieveCompliment(gui, mainWindow);
         });
         
         Button sendButton = new Button("Send a compliment", () -> {
@@ -152,15 +161,53 @@ public class Controller {
         
         Button logoutButton = new Button("Logout", () -> {
             userAccount = null;
-            optionsWindow.close();
+            // Return to main menu when logging out
+            showMainMenu(gui, mainWindow);
         });
         
         optionsPanel.addComponent(retrieveButton);
         optionsPanel.addComponent(sendButton);
         optionsPanel.addComponent(logoutButton);
         
-        optionsWindow.setComponent(optionsPanel);
-        gui.addWindowAndWait(optionsWindow);
+        // Set the new panel as the window's component
+        mainWindow.setComponent(optionsPanel);
+    }
+
+    private void showRetrieveCompliment(WindowBasedTextGUI gui, BasicWindow mainWindow) {
+        Panel retrievePanel = new Panel(new LinearLayout(Direction.VERTICAL));
+        retrievePanel.addComponent(new Label("Retrieve a compliment"));
+        retrievePanel.addComponent(new EmptySpace());
+
+        Button retrieveComplimentButton = new Button("Retrieve a compliment", () -> {
+            ArrayList<String> compliment = accountService.retrieveCompliment(userAccount);
+            String complimentString = String.join("\n", compliment);
+
+            // Handle no compliments found
+            if (compliment.isEmpty()) {
+                MessageDialog.showMessageDialog(
+                    gui, 
+                    "No compliments found",
+                    complimentString,
+                    MessageDialogButton.No);
+    
+            }
+
+            MessageDialog.showMessageDialog(
+                gui, 
+                "Compliment Retrieved",
+                complimentString,
+                MessageDialogButton.OK);
+        });
+
+        Button backButton = new Button("Back", () -> {
+            // Return to user options menu
+            showUserOptions(gui, mainWindow);
+        });
+
+        retrievePanel.addComponent(retrieveComplimentButton);
+        retrievePanel.addComponent(backButton);
+        mainWindow.setComponent(retrievePanel);
+
     }
 
 }
