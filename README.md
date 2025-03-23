@@ -2,7 +2,7 @@
 
 ### Why?
 **Happiness is scarce. The world has become uncomfortably polarized.**\
-This complimentary service allows for uses to submit compliments to each other. The idea is that a user can login, create a compliment for another user, and then submit it. When the recipient signs-on to the service, they are given the option to check their inbox.
+This complimentary service allows for users to submit compliments to each other. The idea is that a user can login, create a compliment for another user, and then submit it. When the recipient signs-on to the service, they are given the option to check their inbox (retrieve a compliment.)
 
 ### Application Requirements:
 - app should be accessible,
