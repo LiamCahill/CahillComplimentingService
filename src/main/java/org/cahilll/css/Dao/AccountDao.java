@@ -10,4 +10,6 @@ public interface AccountDao {
 
     public ArrayList<String> retrieveCompliment(Account userAccount);
 
+    public void sendCompliment(Account sender, String receiver, String compliment);
+
 }

@@ -157,6 +157,7 @@ public class Controller {
         Button sendButton = new Button("Send a compliment", () -> {
             // Handle sending compliment
             System.out.println("Sending compliment...");
+            sendCompliment(gui, mainWindow);
         });
         
         Button logoutButton = new Button("Logout", () -> {
@@ -209,5 +210,55 @@ public class Controller {
         mainWindow.setComponent(retrievePanel);
 
     }
+
+    private void sendCompliment(WindowBasedTextGUI gui, BasicWindow mainWindow) {
+        Panel retrievePanel = new Panel(new LinearLayout(Direction.VERTICAL));
+        retrievePanel.addComponent(new Label("Draft your compliment"));
+        retrievePanel.addComponent(new EmptySpace());
+
+        TextBox complimentField = new TextBox();
+        TextBox recipientField = new TextBox();
+
+
+        Button sendButton = new Button("Send", () -> {
+
+            if (complimentField.getText().isEmpty()) {
+                MessageDialog.showMessageDialog(
+                    gui, 
+                    "You must enter a compliment!",
+                    "OK",
+                    MessageDialogButton.No);
+    
+            } else if (recipientField.getText().isEmpty()) {
+                MessageDialog.showMessageDialog(
+                    gui, 
+                    "You must enter a recipient",
+                    "OK",
+                    MessageDialogButton.No);
+            }
+
+
+            // Return to user options menu
+            accountService.sendCompliment(userAccount, recipientField.getText(), complimentField.getText());
+            showUserOptions(gui, mainWindow);
+        });
+
+
+        Button cancelButton = new Button("Cancel", () -> {
+            showUserOptions(gui, mainWindow);
+        });
+
+        retrievePanel.addComponent(new Label("Recipient:"));
+        retrievePanel.addComponent(recipientField);
+        retrievePanel.addComponent(new EmptySpace());
+        retrievePanel.addComponent(new Label("Compliment:"));
+        retrievePanel.addComponent(complimentField);
+        retrievePanel.addComponent(new EmptySpace());
+        retrievePanel.addComponent(sendButton);
+        retrievePanel.addComponent(cancelButton);
+        mainWindow.setComponent(retrievePanel);
+
+    }
+
 
 }

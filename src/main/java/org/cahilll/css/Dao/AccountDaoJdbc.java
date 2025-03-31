@@ -63,6 +63,24 @@ public class AccountDaoJdbc implements AccountDao {
         return compliments;
     }
 
+    @Override
+    public void sendCompliment(Account sender, String receiver, String compliment) {
+        try (Connection connection = MyConnection.getConnection()) {
+            int index = 0;
+            String sql = "INSERT INTO COMPLIMENTS (C_SENDER, C_RECEIVER, C_MESSAGE) VALUES (?, ?, ?)";
+            log.info("Sending compliments to user: {}", receiver);
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(++index, sender.getUsername());
+            statement.setString(++index, receiver);
+            statement.setString(++index, compliment);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private int getComplimentCount(Account userAccount) {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
