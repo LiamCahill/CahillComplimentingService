@@ -65,6 +65,13 @@ public class AccountDaoJdbc implements AccountDao {
 
     @Override
     public void sendCompliment(Account sender, String receiver, String compliment) {
+
+        if (!checkUserExists(receiver)) {
+            log.error("User does not exist");
+            // TODO: throw an exception and/or show a message to the user in new gui
+            return;
+        }
+
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
             String sql = "INSERT INTO COMPLIMENTS (C_SENDER, C_RECEIVER, C_MESSAGE) VALUES (?, ?, ?)";
@@ -97,5 +104,27 @@ public class AccountDaoJdbc implements AccountDao {
             e.printStackTrace();
         }
         return 0;
+    }
+
+
+    // TODO: add this to varify user exists before sending a compliment
+    private boolean checkUserExists(String username) {
+        try (Connection connection = MyConnection.getConnection()) {
+            int index = 0;
+            String sql = "SELECT COUNT(*) FROM USERS WHERE U_USERNAME = ?";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(++index, username);
+
+            ResultSet result = statement.executeQuery();
+            log.info("Checking if user exists: {}", username);
+            log.info("Result: {}", result);
+            if (result.next()) {
+                return result.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
