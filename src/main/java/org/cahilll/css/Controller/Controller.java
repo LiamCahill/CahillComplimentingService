@@ -237,7 +237,14 @@ public class Controller {
                     MessageDialogButton.No);
             }
 
-
+            if (accountService.sendCompliment(userAccount, recipientField.getText(), complimentField.getText())) {
+                MessageDialog.showMessageDialog(
+                    gui, 
+                    "Compliment sent",
+                    "OK",
+                    MessageDialogButton.No);
+            }
+            
             // Return to user options menu
             accountService.sendCompliment(userAccount, recipientField.getText(), complimentField.getText());
             showUserOptions(gui, mainWindow);

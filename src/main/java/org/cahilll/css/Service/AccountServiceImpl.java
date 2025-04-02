@@ -28,8 +28,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     // TODO: add a method to retrieve a compliment that has not been used yet
-
-    public void sendCompliment(Account sender, String receiver, String compliment) {
-        dao.sendCompliment(sender, receiver, compliment);
+    public boolean sendCompliment(Account sender, String receiver, String compliment) {
+        return dao.sendCompliment(sender, receiver, compliment);
     }
 }

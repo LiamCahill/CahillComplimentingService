@@ -10,7 +10,7 @@ public interface AccountService {
 
     public ArrayList<String> retrieveCompliment(Account userAccount);
 
-    public void sendCompliment(Account sender, String receiver, String compliment);
+    public boolean sendCompliment(Account sender, String receiver, String compliment);
 
 
 }

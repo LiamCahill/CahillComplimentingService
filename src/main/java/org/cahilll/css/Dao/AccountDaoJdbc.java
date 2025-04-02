@@ -42,17 +42,21 @@ public class AccountDaoJdbc implements AccountDao {
         
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
-            String compliment_query = "SELECT * FROM COMPLIMENTS WHERE C_RECEIVER = ? ";
+            String compliment_query = "SELECT * FROM COMPLIMENTS WHERE C_RECEIVER = ? AND `C_USED` = 0";
             log.info("Retrieving compliments for user: {}", userAccount.getUsername());
 
-            int compliment_count = getComplimentCount(userAccount);
+            int compliment_count = getTotalComplimentCount(userAccount);
+            int readCompliments = getReadComplimentCount(userAccount);
+            int unreadCompliments =  getUnreadComplimentCount(userAccount);
 
             PreparedStatement statement_compliment = connection.prepareStatement(compliment_query);
             statement_compliment.setString(++index, userAccount.getUsername());
 
             ResultSet result_compliment = statement_compliment.executeQuery();
             if(result_compliment != null) {
-                System.out.println(compliment_count + " compliment(s) found!");
+                // System.out.println("Total/Read/Unread compliments for user" + compliment_count + " / " + readCompliments + " / " + unreadCompliments);
+                log.info("Total, read, unread compliments for user: {} are {} / {} / {}", userAccount.getUsername(), compliment_count, readCompliments, unreadCompliments);
+
                 while(result_compliment.next()) {
                     compliments.add(result_compliment.getString("C_MESSAGE"));
                 }
@@ -64,12 +68,12 @@ public class AccountDaoJdbc implements AccountDao {
     }
 
     @Override
-    public void sendCompliment(Account sender, String receiver, String compliment) {
+    public boolean sendCompliment(Account sender, String receiver, String compliment) {
 
         if (!checkUserExists(receiver)) {
             log.error("User does not exist");
             // TODO: throw an exception and/or show a message to the user in new gui
-            return;
+            return false;
         }
 
         try (Connection connection = MyConnection.getConnection()) {
@@ -83,12 +87,14 @@ public class AccountDaoJdbc implements AccountDao {
             statement.setString(++index, compliment);
 
             statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
-    private int getComplimentCount(Account userAccount) {
+    private int getTotalComplimentCount(Account userAccount) {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
             String sql = "SELECT COUNT(*) FROM COMPLIMENTS WHERE C_RECEIVER = ?";
@@ -106,8 +112,42 @@ public class AccountDaoJdbc implements AccountDao {
         return 0;
     }
 
+    private int getUnreadComplimentCount(Account userAccount) {
+        try (Connection connection = MyConnection.getConnection()) {
+            int index = 0;
+            String sql = "SELECT COUNT(*) FROM COMPLIMENTS WHERE C_RECEIVER = ? AND `C_USED` = 0";
 
-    // TODO: add this to varify user exists before sending a compliment
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(++index, userAccount.getUsername());
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private int getReadComplimentCount(Account userAccount) {
+        try (Connection connection = MyConnection.getConnection()) {
+            int index = 0;
+            String sql = "SELECT COUNT(*) FROM COMPLIMENTS WHERE C_RECEIVER = ? AND `C_USED` = 1";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(++index, userAccount.getUsername());
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     private boolean checkUserExists(String username) {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
