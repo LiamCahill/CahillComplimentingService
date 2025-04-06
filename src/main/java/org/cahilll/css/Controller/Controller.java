@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.cahilll.css.Common.Constants;
 import org.cahilll.css.Model.Account;
+import org.cahilll.css.Model.Compliment;
 import org.cahilll.css.Service.AccountService;
 import org.cahilll.css.Service.AccountServiceImpl;
 import org.springframework.stereotype.Component;
@@ -180,24 +181,28 @@ public class Controller {
         retrievePanel.addComponent(new EmptySpace());
 
         Button retrieveComplimentButton = new Button("Retrieve a compliment", () -> {
-            ArrayList<String> compliment = accountService.retrieveCompliment(userAccount);
-            String complimentString = String.join("\n", compliment);
+            ArrayList<Compliment> compliment = accountService.retrieveCompliment(userAccount);
+            //String complimentString = String.join("\n", compliment);
 
             // Handle no compliments found
             if (compliment.isEmpty()) {
                 MessageDialog.showMessageDialog(
                     gui, 
-                    "No compliments found",
-                    complimentString,
-                    MessageDialogButton.No);
-    
-            }
+                    "No compliments found - check back later!",
+                    compliment.toString(),
+                    MessageDialogButton.OK);
 
+                    showUserOptions(gui, mainWindow);
+
+            } else {
+            
+            // TODO: show a single compliment, and mark it as read when the user clicks the button
             MessageDialog.showMessageDialog(
                 gui, 
                 "Compliment Retrieved",
-                complimentString,
+                compliment.toString(),
                 MessageDialogButton.OK);
+            }
         });
 
         Button backButton = new Button("Back", () -> {
@@ -226,27 +231,26 @@ public class Controller {
                 MessageDialog.showMessageDialog(
                     gui, 
                     "You must enter a compliment!",
-                    "OK",
-                    MessageDialogButton.No);
+                    "Try again",
+                    MessageDialogButton.OK);
     
             } else if (recipientField.getText().isEmpty()) {
                 MessageDialog.showMessageDialog(
                     gui, 
                     "You must enter a recipient",
-                    "OK",
-                    MessageDialogButton.No);
+                    "Try again",
+                    MessageDialogButton.OK);
             }
 
             if (accountService.sendCompliment(userAccount, recipientField.getText(), complimentField.getText())) {
                 MessageDialog.showMessageDialog(
                     gui, 
-                    "Compliment sent",
-                    "OK",
-                    MessageDialogButton.No);
+                    "Sent!",
+                    "Compliment sent successfully",
+                    MessageDialogButton.OK);
             }
             
             // Return to user options menu
-            accountService.sendCompliment(userAccount, recipientField.getText(), complimentField.getText());
             showUserOptions(gui, mainWindow);
         });
 

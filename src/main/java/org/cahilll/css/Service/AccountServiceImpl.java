@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import org.cahilll.css.Dao.AccountDao;
 import org.cahilll.css.Dao.AccountDaoJdbc;
 import org.cahilll.css.Model.Account;
+import org.cahilll.css.Model.Compliment;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class AccountServiceImpl implements AccountService {
 
     boolean isLoggedIn = false;
@@ -22,8 +26,16 @@ public class AccountServiceImpl implements AccountService {
         return isLoggedIn;
     }
 
-    public ArrayList<String> retrieveCompliment(Account userAccount) {
-        ArrayList<String> compliments = dao.retrieveCompliment(userAccount);
+    public ArrayList<Compliment> retrieveCompliment(Account userAccount) {
+        ArrayList<String> complimentsStrings = dao.retrieveCompliment(userAccount);
+
+        ArrayList<Compliment> compliments = new ArrayList<>();
+
+        log.info(complimentsStrings.toString());
+        // for (String complimentString : complimentsStrings) {
+        //     compliments.add(new Compliment());
+        // }
+
         return compliments;
     }
 

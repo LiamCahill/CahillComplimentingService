@@ -1,6 +1,7 @@
 package org.cahilll.css.Dao;
 
 import org.cahilll.css.Model.Account;
+import org.cahilll.css.Model.Compliment;
 import org.cahilll.css.Controller.MyConnection;
 
 import java.sql.Connection;
@@ -54,12 +55,11 @@ public class AccountDaoJdbc implements AccountDao {
 
             ResultSet result_compliment = statement_compliment.executeQuery();
             if(result_compliment != null) {
-                // System.out.println("Total/Read/Unread compliments for user" + compliment_count + " / " + readCompliments + " / " + unreadCompliments);
                 log.info("Total, read, unread compliments for user: {} are {} / {} / {}", userAccount.getUsername(), compliment_count, readCompliments, unreadCompliments);
 
-                while(result_compliment.next()) {
-                    compliments.add(result_compliment.getString("C_MESSAGE"));
-                }
+                // while(result_compliment.next()) {
+                //     compliments.add(result_compliment.getString("C_MESSAGE"));
+                // }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class AccountDaoJdbc implements AccountDao {
     private boolean checkUserExists(String username) {
         try (Connection connection = MyConnection.getConnection()) {
             int index = 0;
-            String sql = "SELECT COUNT(*) FROM USERS WHERE U_USERNAME = ?";
+            String sql = "SELECT * FROM USERS WHERE U_USERNAME = ?";
             
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(++index, username);
